@@ -1,5 +1,12 @@
 import random
 
+class RangeError(Exception):
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return repr(self.value)
+
 class Character:
     actions = ['upper', 'middle', 'lower']
 
@@ -24,21 +31,29 @@ class Character:
         print '2 -> middle'
         print '3 -> lower'
 
-        attack = 0
-        while not (attack >= 1 and attack <= 3):
+        while True:
             try:
                 attack = int(raw_input('How do you want to attack? '))
+                if not (attack >= 1 and attack <= 3):
+                    raise RangeError('You can only enter the numbers 1 to 3.')
+                break
             except ValueError:
-                print 'You can only enter numbers! And only from 1 to 3.'
+                print 'You can only enter numbers!'
+            except RangeError as e:
+                print e.value
 
         self.attack = self.actions[attack-1];
 
-        defend = 0
-        while not (defend >= 1 and defend <= 3):
+        while True:
             try:
                 defend = int(raw_input('How do you want to defend? '))
+                if not (defend >= 1 and defend <= 3):
+                    raise RangeError('You can only enter the numbers 1 to 3.')
+                break
             except ValueError:
-                print 'You can only enter numbers! And only from 1 to 3.'
+                print 'You can only enter numbers!'
+            except RangeError as e:
+                print e.value
 
         self.defense = self.actions[defend-1];
 
