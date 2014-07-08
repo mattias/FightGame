@@ -26,13 +26,19 @@ class Character:
 
         attack = 0
         while not (attack >= 1 and attack <= 3):
-            attack = int(raw_input('How do you want to attack? '))
+            try:
+                attack = int(raw_input('How do you want to attack? '))
+            except ValueError:
+                print 'You can only enter numbers! And only from 1 to 3.'
 
         self.attack = self.actions[attack-1];
 
         defend = 0
         while not (defend >= 1 and defend <= 3):
-            defend = int(raw_input('How do you want to defend? '))
+            try:
+                defend = int(raw_input('How do you want to defend? '))
+            except ValueError:
+                print 'You can only enter numbers! And only from 1 to 3.'
 
         self.defense = self.actions[defend-1];
 
@@ -41,7 +47,7 @@ class Character:
 class Player(Character):
     def __init__(self):
         Character.__init__(self)
-        self.name = 'Mattias'
+        self.name = 'Player'
 
 class Enemy(Character):
     def __init__(self):
@@ -56,6 +62,8 @@ class Enemy(Character):
 
 player = Player()
 enemy = Enemy()
+
+player.name = str(raw_input('What is your name? '))
 
 print 'Player:'
 print player.name
